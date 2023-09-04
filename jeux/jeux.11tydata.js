@@ -8,22 +8,22 @@ function caselessCompare(a, b) {
 }
 
 module.exports = {
-    layout: "note.html",
-    type: "note",
+    layout: "jeu.html",
+    type: "jeu",
     eleventyComputed: {
         title: data => titleCase(data.title || data.page.fileSlug),
         backlinks: (data) => {
-            const notes = data.collections.notes;
-            const currentFileSlug = data.page.filePathStem.replace('/notes/', '');
+            const jeux = data.collections.jeux;
+            const currentFileSlug = data.page.filePathStem.replace('/jeux/', '');
 
             let backlinks = [];
 
-            // Search the other notes for backlinks
-            for(const otherNote of notes) {
-                const noteContent = otherNote.template.frontMatter.content;
+            // Search the other jeux for backlinks
+            for(const otherJeu of jeux) {
+                const jeuContent = otherJeu.template.frontMatter.content;
 
-                // Get all links from otherNote
-                const outboundLinks = (noteContent.match(wikilinkRegExp) || [])
+                // Get all links from otherJeu
+                const outboundLinks = (jeuContent.match(wikilinkRegExp) || [])
                     .map(link => (
                         // Extract link location
                         link.slice(2,-2)
@@ -32,15 +32,15 @@ module.exports = {
                             .trim()
                     ));
 
-                // If the other note links here, return related info
+                // If the other jeu links here, return related info
                 if(outboundLinks.some(link => caselessCompare(link, currentFileSlug))) {
 
                     // Construct preview for hovercards
-                    let preview = noteContent.slice(0, 240);
+                    let preview = jeuContent.slice(0, 240);
 
                     backlinks.push({
-                        url: otherNote.url,
-                        title: otherNote.data.title,
+                        url: otherJeu.url,
+                        title: otherJeu.data.title,
                         preview
                     })
                 }

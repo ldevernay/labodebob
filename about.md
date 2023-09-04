@@ -1,5 +1,5 @@
 ---
 layout: default
-title: About Me
+title: A propos
 ---
-# About Me
+# Topo sur le Labo de Bob
